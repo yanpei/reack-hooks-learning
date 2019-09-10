@@ -1,12 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Row from './Row';
 
 function Greeting(props){
+  const [name, setName] = useState('Marry');
+  
+  function handleChangeName(e){
+    setName(e.target.value);
+  }
+
   return (
     <section>
       <Row label="Name"> 
-        {props.name}
+        <input value={name} onChange={handleChangeName}></input>
       </Row>
     </section>
   );
