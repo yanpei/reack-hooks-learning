@@ -1,7 +1,9 @@
 .row {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
     border-bottom: 1px solid grey;
+}
+
+.row .row-title {
+    margin-right: 12px;
 }
