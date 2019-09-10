@@ -8,15 +8,25 @@ class Greeting extends React.Component{
     this.state = {
       name: 'Marry',
       surname: 'Gilbert',
+      width: window.innerWidth,
     };
   }
 
   componentDidMount(){
     document.title = this.state.name + ' ' + this.state.surname;
+    window.addEventListener('resize', this.handleResize);
   }
 
   componentDidUpdate(){
     document.title = this.state.name + ' ' + this.state.surname;
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    this.setState({width: window.innerWidth});
   }
 
   handleNameChange = (e) => {
@@ -35,6 +45,9 @@ class Greeting extends React.Component{
         </Row>
         <Row label="Surname">
           <input value={this.state.surname} onChange={this.handelSurnameChange}/> 
+        </Row>
+        <Row label="Width">
+          {this.state.width} 
         </Row>
       </section>
     );
