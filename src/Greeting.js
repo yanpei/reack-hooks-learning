@@ -24,13 +24,13 @@ export default function Greeting(props){
 }
 
 function useFormInput(initValue){
-  const [name, setName] = useState(initValue);
+  const [value, setValue] = useState(initValue);
   function handleNameChange(e){
-    setName(e.target.value);
+    setValue(e.target.value);
   }
 
   return {
-    value: name,
+    value,
     onChange: handleNameChange,
   }
 }
