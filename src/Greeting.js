@@ -5,21 +5,9 @@ import Row from './Row';
 function Greeting(props){
   const [name, setName] = useState('Marry');
   const [surname, setSurname] = useState('Gilbert');
+  const width = useWindowWidth();
+  useDocumentTitle(name + ' ' + surname);
   
-  useEffect(() => {
-    document.title = name + ' ' + surname;
-  });
-
-  const [width, setWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    }
-  })
-
   function handleNameChange(e){
     setName(e.target.value);
   }
@@ -41,6 +29,26 @@ function Greeting(props){
       </Row>
     </section>
   );
+}
+
+function useDocumentTitle(title){
+  useEffect(() => {
+    document.title = title;
+  });
+}
+
+function useWindowWidth(){
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  });
+
+  return width;
 }
 
 export default Greeting;
