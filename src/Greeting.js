@@ -2,33 +2,37 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import Row from './Row';
 
-function Greeting(props){
-  const [name, setName] = useState('Marry');
-  const [surname, setSurname] = useState('Gilbert');
+export default function Greeting(props){
+  const name = useFormInput('Marry');
+  const surname = useFormInput('Gilbert');
   const width = useWindowWidth();
-  useDocumentTitle(name + ' ' + surname);
-  
-  function handleNameChange(e){
-    setName(e.target.value);
-  }
-
-  function handleSurnameChange(e){
-    setSurname(e.target.value);
-  }
+  useDocumentTitle(name.value + ' ' + surname.value);
 
   return (
     <section>
       <Row label="Name"> 
-        <input value={name} onChange={handleNameChange}></input>
+        <input value={name.value} onChange={name.onChange}></input>
       </Row>
       <Row label="Surname"> 
-        <input value={surname} onChange={handleSurnameChange}></input>
+        <input value={surname.value} onChange={surname.onChange}></input>
       </Row>
       <Row label="Width"> 
         {width}
       </Row>
     </section>
   );
+}
+
+function useFormInput(initValue){
+  const [name, setName] = useState(initValue);
+  function handleNameChange(e){
+    setName(e.target.value);
+  }
+
+  return {
+    value: name,
+    onChange: handleNameChange,
+  }
 }
 
 function useDocumentTitle(title){
@@ -50,5 +54,3 @@ function useWindowWidth(){
 
   return width;
 }
-
-export default Greeting;
