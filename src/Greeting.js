@@ -6,7 +6,7 @@ export default function Greeting(props){
   const name = useFormInput('Marry');
   const surname = useFormInput('Gilbert');
   const width = useWindowWidth();
-  useDocumentTitle(name.value + ' ' + surname.value);
+  useDocumentTitle(name.value + ' ' + surname.value + ' ' + width, [name.value, surname.value]);
 
   return (
     <section>
@@ -35,10 +35,10 @@ function useFormInput(initValue){
   }
 }
 
-function useDocumentTitle(title){
+function useDocumentTitle(title, dependencyList){
   useEffect(() => {
     document.title = title;
-  });
+  }, dependencyList);
 }
 
 function useWindowWidth(){
